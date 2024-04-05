@@ -18,7 +18,7 @@ public class Book {
     private Long id;
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String author;
     @Column(nullable = false, unique = true)
     private BigDecimal isbn;
