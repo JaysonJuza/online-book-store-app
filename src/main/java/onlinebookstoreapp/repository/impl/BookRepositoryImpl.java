@@ -2,6 +2,7 @@ package onlinebookstoreapp.repository.impl;
 
 import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
+import java.util.Optional;
 import onlinebookstoreapp.model.Book;
 import onlinebookstoreapp.repository.BookRepository;
 import org.hibernate.Session;
@@ -50,6 +51,15 @@ public class BookRepositoryImpl implements BookRepository {
             return session.createQuery(query).getResultList();
         } catch (Exception e) {
             throw new RuntimeException("Can't find any of books", e);
+        }
+    }
+
+    @Override
+    public Optional<Book> findById(Long id) {
+        try (Session session = sessionFactory.openSession()) {
+            return Optional.ofNullable(session.get(Book.class, id));
+        } catch (Exception e) {
+            throw new RuntimeException("Can't find entity into DB by id: " + id, e);
         }
     }
 }
